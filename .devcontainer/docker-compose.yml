@@ -1,0 +1,30 @@
+services:
+  webapp:
+    container_name: python3-12
+    build: 
+      context: .
+      dockerfile: docker/python.dockerfile 
+      args:
+        - USERNAME=${USERNAME}
+        - USER_PASSWORD=${USER_PASSWORD}
+        - UID=${UID}
+        - GID=${GID}
+    ports:
+      - 8000:8000
+      - 8080:8080
+    env_file:
+      - .env
+    environment:
+      TZ: "Asia/Tokyo"
+    stdin_open: true
+    volumes:
+      - type: bind
+        source: ../
+        target: /workspaces/pylinter/
+    networks:
+      - webapp_network
+
+
+networks:
+  webapp_network:
+    driver: bridge

@@ -1,0 +1,47 @@
+{
+	"name": "devcontainer-python",
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "webapp",
+	"workspaceFolder": "/workspaces/pylinter/",
+	"shutdownAction": "stopContainer",
+	"runArgs": [
+		"--name",
+		"devcontainer-python",
+	],
+	"extensions": [
+		"ms-python.python",
+		"njpwerner.autodocstring",
+		"mhutchie.git-graph",
+		"donjayamanne.githistory",
+		"ms-python.black-formatter",
+		"ms-python.isort",
+		"ms-python.pylint",
+		"ms-python.mypy-type-checker"
+	],
+	"settings": {
+		"[python]": {
+			"editor.defaultFormatter": "ms-python.black-formatter",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": true
+			}
+		},
+		"isort.args": [
+			"--profile",
+			"black"
+		],
+		"python.linting.mypyEnabled": true,
+		"python.linting.pylintArgs": [
+			"--rcfile",
+			"${workspaceFolder}/pylintrc"
+		],
+		"mypy-type-checker.args": [
+			"--ignore-missing-imports",
+			"--disallow-untyped-defs",
+			"--config-file=${workspaceFolder}/mypy.ini"
+		],
+	},
+	"remoteUser": "user",
+	// "forwardPorts": [8888],
+	"postCreateCommand": "/bin/sh .devcontainer/postCreateCommand.sh"
+}
